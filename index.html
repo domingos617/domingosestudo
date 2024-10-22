@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards de Estudo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .flashcard {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .flashcard:hover {
+            transform: scale(1.05);
+        }
+
+        .front, .back {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .back {
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flashcards de Estudo</h1>
+        <div class="flashcard" id="flashcard">
+            <div class="front" id="front">
+                O que é HTML?
+            </div>
+            <div class="back" id="back">
+                HTML é uma linguagem de marcação usada para estruturar conteúdo na web.
+            </div>
+        </div>
+        <button onclick="nextCard()">Próximo</button>
+    </div>
+
+    <script>
+        const flashcard = document.getElementById('flashcard');
+        const front = document.getElementById('front');
+        const back = document.getElementById('back');
+        let flipped = false;
+
+        flashcard.addEventListener('click', () => {
+            if (!flipped) {
+                front.style.display = 'none';
+                back.style.display = 'block';
+            } else {
+                front.style.display = 'block';
+                back.style.display = 'none';
+            }
+            flipped = !flipped;
+        });
+
+        const flashcards = [
+            {
+                front: "O que é HTML?",
+                back: "HTML é uma linguagem de marcação usada para estruturar conteúdo na web."
+            },
+            {
+                front: "O que é CSS?",
+                back: "CSS é uma linguagem de estilo usada para definir a aparência dos elementos na web."
+            },
+            {
+                front: "O que é JavaScript?",
+                back: "JavaScript é uma linguagem de programação que permite interatividade em páginas da web."
+            }
+        ];
+
+        let currentCard = 0;
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcards.length;
+            front.textContent = flashcards[currentCard].front;
+            back.textContent = flashcards[currentCard].back;
+            front.style.display = 'block';
+            back.style.display = 'none';
+            flipped = false;
+        }
+    </script>
+</body>
+</html>
